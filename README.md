@@ -1,77 +1,86 @@
 # Traffic Sign Image Colorization
 
-## Project Overview
+## Overview
 
-This project focuses on automatic colorization of grayscale traffic sign images using deep learning. Two convolutional autoencoder architectures are implemented and compared to evaluate different approaches to image reconstruction.
+This project explores automatic colorization of grayscale traffic sign images using deep learning. Two convolutional autoencoder architectures are implemented and compared to investigate different approaches to image reconstruction.
 
-The models learn to predict color information from grayscale images while preserving their original structure and details.
+The models take grayscale images as input and learn to reconstruct their color information while preserving the original image structure and details.
 
 ## Dataset
 
 The project uses the **German Traffic Sign Recognition Benchmark (GTSRB)** dataset.
 
-- Training set: 26,640 images
-- Test set: 12,630 images
-- Image resolution: 64 × 64 pixels
+- **Training set:** 26,640 images
+- **Test set:** 12,630 images
+- **Image resolution:** 64 × 64 pixels
 
-Images are resized to 64 × 64 pixels before being used for training.
+All images are resized to 64 × 64 pixels before being used in the experiments.
 
 ## Methodology
 
-The colorization task is performed in the CIELAB color space:
+The colorization task is performed in the **CIELAB color space**, which separates image brightness from color information.
 
-- **L channel** – represents image lightness and is used as model input.
-- **a and b channels** – represent color information and are used as prediction targets.
+- **L channel:** Represents image lightness and is used as the model input.
+- **a and b channels:** Represent color information and serve as prediction targets.
 
-This approach separates image structure from color information, allowing the models to focus on predicting colors while retaining the original luminance.
+By separating luminance from color, the models can focus on predicting the missing color information while retaining the original image brightness and structure.
 
-## Models
+## Model Architectures
 
-Two convolutional autoencoder architectures are implemented using a shared encoder:
+Two convolutional autoencoders with a shared encoder architecture are implemented and compared.
 
-**1. Transposed Convolution Autoencoder**
-- Convolutional encoder with four downsampling layers.
-- Decoder based on transposed convolutions.
+### 1. Transposed Convolution Autoencoder
+
+- Uses a convolutional encoder with four downsampling layers.
+- The decoder consists of transposed convolutional layers.
 - Reconstructs the color channels from the grayscale input.
 
-**2. Interpolation + Convolution Autoencoder**
-- Uses the same encoder architecture.
-- Decoder combines bilinear interpolation with standard convolutional layers.
+### 2. Interpolation + Convolution Autoencoder
+
+- Uses the same encoder architecture as the first model.
+- The decoder combines bilinear interpolation with standard convolutional layers.
 - Gradually increases spatial resolution to reconstruct the color channels.
 
-## Training
+## Training Configuration
 
-Both models are trained using the following configuration:
+Both models are trained using the same configuration to ensure a fair comparison.
 
 | Parameter | Value |
 |---|---|
+| Framework | PyTorch |
 | Optimizer | Adam |
 | Learning rate | 0.001 |
 | Loss function | L1 Loss |
-| Epochs | 10 |
+| Number of epochs | 10 |
 | Batch size | 64 |
-| Image size | 64 × 64 |
-
-Training is performed using PyTorch.
+| Input resolution | 64 × 64 |
 
 ## Results
-![Colorization Results](images/coloring-results.png)
-Both architectures demonstrate stable convergence during training.
 
-| Model | Initial Loss | Final Loss |
+### Visual Results
+
+The following examples show the colorization results produced by the models.
+
+![Colorization Results](images/coloring-results.png)
+
+### Training Loss Comparison
+
+Both architectures demonstrate a decrease in training loss throughout the training process.
+
+| Model | Initial Training Loss | Final Training Loss |
 |---|---:|---:|
 | Transposed Convolution AE | 0.05300 | 0.02403 |
 | Interpolation + Convolution AE | 0.05285 | 0.02713 |
 
 ![Loss Convergence Comparison](images/compare-loss-convergence-plot.png)
 
-The Transposed Convolution Autoencoder achieves a lower final training loss and converges faster.
+The **Transposed Convolution Autoencoder** achieves a lower final training loss than the Interpolation + Convolution architecture.
 
-Visual comparison on test images shows no substantial differences between the two approaches.
+Visual comparisons on test images show no substantial differences between the two approaches.
 
-The models also generalize reasonably well to external images resembling the training dataset. However, their performance decreases on images from significantly different environments.
+Additional experiments with external images suggest that the models can produce reasonable results on images resembling the training dataset. However, their performance significantly decreases when processing images from different environments.
 
-## Technologies
+## Technologies Used
 
 - Python
 - PyTorch
@@ -82,4 +91,6 @@ The models also generalize reasonably well to external images resembling the tra
 
 ## Conclusion
 
-This project demonstrates two different approaches to image colorization using convolutional autoencoders. The experiments show that both architectures can learn to reconstruct color information from grayscale traffic sign images, with the Transposed Convolution approach achieving a lower training loss.
+This project explores two decoder architectures for image colorization using convolutional autoencoders.
+
+Both approaches successfully learn to reconstruct color information from grayscale traffic sign images. Based on the training results, the Transposed Convolution Autoencoder achieves a lower final loss, while visual comparisons show broadly similar colorization results from both models.
