@@ -52,7 +52,7 @@ Both models are trained using the following configuration:
 | Batch size | 64 |
 | Image size | 64 × 64 |
 
-Training is performed using PyTorch, with GPU acceleration enabled when available.
+Training is performed using PyTorch.
 
 ## Results
 
