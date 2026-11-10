@@ -55,13 +55,15 @@ Both models are trained using the following configuration:
 Training is performed using PyTorch.
 
 ## Results
-
+![Colorization Results](images/coloring-results.png)
 Both architectures demonstrate stable convergence during training.
 
 | Model | Initial Loss | Final Loss |
 |---|---:|---:|
 | Transposed Convolution AE | 0.05300 | 0.02403 |
 | Interpolation + Convolution AE | 0.05285 | 0.02713 |
+
+![Loss Convergence Comparison](images/compare-loss-convergence-plot.png)
 
 The Transposed Convolution Autoencoder achieves a lower final training loss and converges faster.
 
@@ -76,44 +78,7 @@ The models also generalize reasonably well to external images resembling the tra
 - Torchvision
 - NumPy
 - Matplotlib
-- scikit-image
-- Pillow
 - Jupyter Notebook
-
-## How to Run
-
-1. Clone the repository:
-
-   ```bash
-   git clone <repository-url>
-   cd <repository-name>
-   ```
-
-2. Install the required libraries:
-
-   ```bash
-   pip install torch torchvision numpy matplotlib scikit-image pillow jupyter
-   ```
-
-3. Open the notebook:
-
-   ```bash
-   jupyter notebook traffic-sign-colorization.ipynb
-   ```
-
-4. Run the notebook cells sequentially.
-
-The GTSRB dataset is downloaded automatically by Torchvision.
-
-## Project Structure
-
-```text
-traffic-sign-colorization/
-│
-├── traffic-sign-colorization.ipynb
-├── README.md
-└── data/
-```
 
 ## Conclusion
 
